@@ -5,21 +5,16 @@
 <script>
     var map = L.map('mapid').setView([52.374476, 9.738585], 16);
     var markerCache = [];
-
     L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery by Wikimedia',
         maxZoom: 18,
         id: 'wikimedia'
     }).addTo(map);
-
     map.on('moveend', function () {
         onMove();
     });
-
     loadCurrentNodes();
     loadUserLocation();
-
-
     function loadUserLocation() {
         if (!navigator.geolocation)
             return;
@@ -75,13 +70,11 @@
         if (element.tags.name != undefined)
             content += "<b>" + element.tags.name + "</b><br />";
         content += "<i>" + getElementType(element) + "</i><br />";
-
         content += "<br />";
         content += "<b>Zahlungsmöglichkeiten</b><br />";
-        $.each(getPopuplist(), function (name, tag) {
-            content += name + ": " + getReadableAcceptanceStatus(element, tag) + "<br />";
+        $.each(getPopuplist(), function (name, payment) {
+            content += "<i class='" + payment.icon + "'></i> " + payment.title + ": " + getReadableAcceptanceStatus(element, payment.tag) + "<br />";
         });
-
         content += "<small>Daten fehlerhaft? <a href='https://www.openstreetmap.org/edit?node=" + element.id + "' target='_blank'>Hier</a> korrigieren. :)</small>"
 
         return content;
@@ -98,13 +91,33 @@
     }
 
     function getPopuplist() {
-        return {
-            "Kontaktlos": "payment:contactless",
-            "Girokarte": "payment:girocard",
-            "MasterCard": "payment:mastercard",
-            "VISA": "payment:visa",
-            "American Express": "payment:american_express"
-        };
+        return [
+            {
+                "title": "Kontaktlos",
+                "tag": "payment:contactless",
+                "icon": "fas fa-wifi"
+            },
+            {
+                "title": "Girokarte",
+                "tag": "payment:girocard",
+                "icon": "fas fa-credit-card"
+            },
+            {
+                "title": "MasterCard",
+                "tag": "payment:mastercard",
+                "icon": "fab fa-cc-mastercard"
+            },
+            {
+                "title": "VISA",
+                "tag": "payment:visa",
+                "icon": "fab fa-cc-visa"
+            },
+            {
+                "title": "American Express",
+                "tag": "payment:american_express",
+                "icon": "fab fa-cc-amex"
+            }
+        ];
     }
 
     function getElementType(element) {
