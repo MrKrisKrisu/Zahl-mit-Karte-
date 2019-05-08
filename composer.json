@@ -1,0 +1,15 @@
+{
+    "name": "mrkriskrisu/zahlmitkarte",
+    "description": "",
+    "authors": [
+        {
+            "name": "Kristian Stoeckel",
+            "email": "zmkgit@k118.de"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "files": ["includes/class.initializer.php"]
+    }
+}
