@@ -1,9 +1,6 @@
-<?php
-/**
- * @author Kristian Stoeckel https://github.com/MrKrisKrisu
- */
-?>
+
 <div id="mapid" style="width: 100%; height: 700px;"></div>
+<a href="/impressum/">Impressum</a>
 
 <script>
     var map = L.map('mapid').setView([52.374476, 9.738585], 16);
