@@ -1,6 +1,3 @@
-<?php
-/**
- * @author Kristian Stöckel https://github.com/MrKrisKrisu
- */
-?>
-404
+
+404 - Page not found
+<a href="/">Back to the map</a>
