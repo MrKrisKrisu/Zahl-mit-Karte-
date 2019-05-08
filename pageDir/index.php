@@ -69,8 +69,14 @@
         var content = "";
         if (element.tags.name != undefined)
             content += "<b>" + element.tags.name + "</b><br />";
-        content += "<i>" + getElementType(element) + "</i><br />";
-        content += "<br />";
+        content += "<i>" + getElementType(element) + "</i><br /><br />";
+
+        content += (element.tags['addr:street'] != undefined ? element.tags['addr:street'] + " " : '') + (element.tags["addr:housenumber"] != undefined ? element.tags["addr:housenumber"] : "") + "<br />";
+        content += (element.tags['addr:postcode'] != undefined ? element.tags['addr:postcode'] + " " : "") + (element.tags["addr:city"] != undefined ? element.tags["addr:city"] : "") + "<br /><br />";
+
+        if (element.tags.operator != undefined)
+            content += "Eigentümer: " + element.tags.operator + "<br /><br />";
+
         content += "<b>Zahlungsmöglichkeiten</b><br />";
         $.each(getPopuplist(), function (name, payment) {
             content += "<i class='" + payment.icon + "'></i> " + payment.title + ": " + getReadableAcceptanceStatus(element, payment.tag) + "<br />";
@@ -123,9 +129,24 @@
     function getElementType(element) {
         if (element.tags.amenity == "vending_machine" && element.tags.vending == "public_transport_tickets")
             return "Fahrkartenautomat";
-        if (element.tags.amenity != undefined)
+        if (element.tags.amenity != undefined) {
+            switch (element.tags.amenity) {
+                case "post_office":
+                    return "Post";
+                default:
+                    return "amenity / " + element.tags.amenity;
+            }
             return element.tags.amenity;
-        if (element.tags.shop != undefined)
-            return element.tags.shop;
+        }
+        if (element.tags.shop != undefined) {
+            switch (element.tags.shop) {
+                case "supermarket":
+                    return "Supermarkt";
+                case "hairdresser":
+                    return "Friseur";
+                default:
+                    return "shop / " + element.tags.shop;
+            }
+        }
     }
 </script>
