@@ -1,12 +1,13 @@
-
-<div id="mapid" style="width: 100%; height: 700px;"></div>
-<a href="/impressum/">Impressum</a>
+<?php
+PageManager::$ignoreTemplate = true;
+?>
+<div id="mapid" style="width: 100%;"></div>
 
 <script>
     var map = L.map('mapid').setView([52.374476, 9.738585], 16);
     var markerCache = [];
     L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery by Wikimedia',
+        attribution: '<a href="/impressum/">Impressum</a> | Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery by Wikimedia',
         maxZoom: 18,
         id: 'wikimedia'
     }).addTo(map);

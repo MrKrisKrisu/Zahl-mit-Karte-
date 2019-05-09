@@ -2,6 +2,8 @@
 
 class PageManager {
 
+    public static $ignoreTemplate = false;
+
     public function __construct() {
         ob_start();
         require_once self::getRoutingFile();
@@ -47,30 +49,34 @@ class PageManager {
                 <script src="/leaflet/leaflet.js"></script>
             </head>
             <body>
-                <header>
-                    <div class="navbar navbar-dark bg-dark shadow-sm">
-                        <div class="container d-flex justify-content-between">
-                            <a href="/" class="navbar-brand d-flex align-items-center">
-                                <strong>Zahl mit Karte!</strong>
-                            </a>
+                <?php if (!self::$ignoreTemplate) { ?>
+                    <header>
+                        <div class="navbar navbar-dark bg-dark shadow-sm">
+                            <div class="container d-flex justify-content-between">
+                                <a href="/" class="navbar-brand d-flex align-items-center">
+                                    <strong>Zahl mit Karte!</strong>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                </header>
+                    </header>
 
-                <main role="main">
-                    <div class="container" style="padding-top: 15px;">
-                        <?php
+                    <main role="main">
+                        <div class="container" style="padding-top: 15px;">
+                            <?php
+                        }
                     }
 
                     private static function footer() {
-                        ?>
-                    </div>
-                </main>
+                        if (!self::$ignoreTemplate) {
+                            ?>
+                        </div>
+                    </main>
 
-                <footer class="text-muted">
-                    <div class="container">
-                    </div>
-                </footer>
+                    <footer class="text-muted">
+                        <div class="container">
+                        </div>
+                    </footer>
+                <?php } ?>
             </body>
             <!-- Matomo -->
             <script type="text/javascript">
